@@ -54,9 +54,16 @@ namespace PowerupParty
             playerSelectUI.GetComponent<VerticalLayoutGroup>().spacing = 2;
             playerSelectUI.GetComponent<VerticalLayoutGroup>().childAlignment = TextAnchor.UpperCenter;
             playerSelectUI.GetComponent<VerticalLayoutGroup>().childControlWidth = true;
+            GameObject selText = new GameObject("selText", new[] { typeof(TextMeshProUGUI) });
+            selText.transform.parent = playerSelectUI.transform;
+            selText.GetComponent<TextMeshProUGUI>().text = "What player to give powerup?";
+            selText.GetComponent<TextMeshProUGUI>().fontSize = 32;
+            selText.GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Normal;
+            selText.GetComponent<TextMeshProUGUI>().autoSizeTextContainer = true;
+            selText.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 1);
             for (int y = 0; y < NetworkController.Instance.nPlayers; y++)
             {
-                //if (y == LocalClient.instance.myId) continue;
+                if (y == LocalClient.instance.myId) continue;
                 int z = y;
                 GameObject plybtn = new GameObject("plybtn", new[] { typeof(RectTransform), typeof(CanvasRenderer), typeof(RawImage), typeof(Button) });
                 plybtn.transform.parent = playerSelectUI.transform;
@@ -65,7 +72,8 @@ namespace PowerupParty
                 plybtnText.transform.parent = plybtn.transform;
                 plybtnText.GetComponent<TextMeshProUGUI>().text = NetworkController.Instance.playerNames[y] + " (" + y.ToString() + ")";
                 plybtnText.GetComponent<TextMeshProUGUI>().fontSize = 16;
-                plybtnText.GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
+                plybtnText.GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Normal;
+                plybtnText.GetComponent<TextMeshProUGUI>().autoSizeTextContainer = true;
                 plybtnText.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 1);
                 plybtn.GetComponent<Button>().onClick.RemoveAllListeners();
                 plybtn.GetComponent<Button>().onClick.AddListener(delegate ()
@@ -94,7 +102,8 @@ namespace PowerupParty
             closebtnText.transform.parent = closebtn.transform;
             closebtnText.GetComponent<TextMeshProUGUI>().text = "Close";
             closebtnText.GetComponent<TextMeshProUGUI>().fontSize = 16;
-            closebtnText.GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
+            closebtnText.GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Normal;
+            closebtnText.GetComponent<TextMeshProUGUI>().autoSizeTextContainer = true;
             closebtnText.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 1);
             closebtn.GetComponent<Button>().onClick.RemoveAllListeners();
             closebtn.GetComponent<Button>().onClick.AddListener(delegate ()
