@@ -1,0 +1,9 @@
+{
+  "name": "PowerupParty",
+  "version_number": "1.0.1",
+  "website_url": "https://github.com/molniya0207/PowerupParty",
+  "description": "Give powerups to your friends and family!",
+  "dependencies": [
+    "Terrain-OffroadPackets-1.1.0"
+  ]
+}

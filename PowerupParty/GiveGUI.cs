@@ -30,6 +30,9 @@ namespace PowerupParty
                     i.Value.AddComponent<Button>();
                     i.Value.TryGetComponent(out btnComponent);
                 }
+                Navigation nav = new Navigation();
+                nav.mode = Navigation.Mode.None;
+                btnComponent.navigation = nav;
                 btnComponent.onClick.RemoveAllListeners();
                 btnComponent.onClick.AddListener(delegate ()
                 {
@@ -59,7 +62,6 @@ namespace PowerupParty
             selText.GetComponent<TextMeshProUGUI>().text = "What player to give powerup?";
             selText.GetComponent<TextMeshProUGUI>().fontSize = 32;
             selText.GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Normal;
-            selText.GetComponent<TextMeshProUGUI>().autoSizeTextContainer = true;
             selText.GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, 1);
             for (int y = 0; y < NetworkController.Instance.nPlayers; y++)
             {

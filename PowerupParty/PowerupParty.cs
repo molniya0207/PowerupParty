@@ -26,6 +26,7 @@ namespace PowerupParty
 
             harmony.PatchAll();
             packets.HandleClient("GetPowerupFromServer", ClientGetPowerupFromServer);
+            packets.HandleClient("AddPowerupChatMessageFromServer", ClientAddPowerupChatMessageFromServer);
             packets.HandleServer("SendPowerupToClient", ServerSendPowerupToClient);
         }
 
@@ -39,6 +40,12 @@ namespace PowerupParty
                 writer.Write(fromClient);
                 writer.Write(powerupId);
             }
+            using (packets.WriteToAll("AddPowerupChatMessageFromServer", out var writer, P2PSend.Reliable))
+            {
+                writer.Write(fromClient);
+                writer.Write(idTo);
+                writer.Write(powerupId);
+            }
         }
 
         public static void ClientGetPowerupFromServer(BinaryReader br)
@@ -47,8 +54,16 @@ namespace PowerupParty
             int powerupId = br.ReadInt32();
             PowerupInventory.Instance.powerups[powerupId]++;
             PowerupUI.Instance.AddPowerup(powerupId);
-            ClientSend.SendChatMessage("<color=#00FF00>" + NetworkController.Instance.playerNames[idFrom] + " gived " + ItemManager.Instance.allPowerups[powerupId].name + " to " + NetworkController.Instance.playerNames[LocalClient.instance.myId] + "!");
+            //ClientSend.SendChatMessage("<color=#00FF00>" + NetworkController.Instance.playerNames[idFrom] + " gived " + ItemManager.Instance.allPowerups[powerupId].name + " to " + NetworkController.Instance.playerNames[LocalClient.instance.myId] + "!");
             ChatBox.Instance.AppendMessage(-1, "<color=#00FF00>You received " + ItemManager.Instance.allPowerups[powerupId].name + " from " + NetworkController.Instance.playerNames[idFrom] + "!", "");
+        }
+
+        public static void ClientAddPowerupChatMessageFromServer(BinaryReader br)
+        {
+            int idFrom = br.ReadInt32();
+            int idTo = br.ReadInt32();
+            int powerupId = br.ReadInt32();
+            ChatBox.Instance.AppendMessage(-1, "<color=#00FF00>" + NetworkController.Instance.playerNames[idFrom] + " gived " + ItemManager.Instance.allPowerups[powerupId].name + " to " + NetworkController.Instance.playerNames[idTo] + "!", "");
         }
     }
 }
