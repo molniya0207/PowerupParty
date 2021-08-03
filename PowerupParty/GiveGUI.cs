@@ -57,6 +57,7 @@ namespace PowerupParty
             for (int y = 0; y < NetworkController.Instance.nPlayers; y++)
             {
                 //if (y == LocalClient.instance.myId) continue;
+                int z = y;
                 GameObject plybtn = new GameObject("plybtn", new[] { typeof(RectTransform), typeof(CanvasRenderer), typeof(RawImage), typeof(Button) });
                 plybtn.transform.parent = playerSelectUI.transform;
                 plybtn.GetComponent<RawImage>().color = new Color(0.4f, 0.4f, 0.4f, 1f);
@@ -69,7 +70,6 @@ namespace PowerupParty
                 plybtn.GetComponent<Button>().onClick.RemoveAllListeners();
                 plybtn.GetComponent<Button>().onClick.AddListener(delegate ()
                 {
-                    int z = y;
                     if (PowerupInventory.Instance.powerups[currPUI] > 0)
                     {
                         PowerupInventory.Instance.powerups[currPUI]--;
