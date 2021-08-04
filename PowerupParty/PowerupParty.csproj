@@ -45,7 +45,8 @@
     <Reference Include="Boxophobic.Utils.Scripts">
       <HintPath>D:\Games\Steam\steamapps\common\Muck\Muck_Data\Managed\Boxophobic.Utils.Scripts.dll</HintPath>
     </Reference>
-    <Reference Include="Facepunch.Steamworks.Win64">
+    <Reference Include="Facepunch.Steamworks.Win64, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\Games\Steam\steamapps\common\Muck\Muck_Data\Managed\Facepunch.Steamworks.Win64.dll</HintPath>
     </Reference>
     <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
