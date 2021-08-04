@@ -1,6 +1,6 @@
 {
   "name": "PowerupParty",
-  "version_number": "1.0.2",
+  "version_number": "1.1.0",
   "website_url": "https://github.com/molniya0207/PowerupParty",
   "description": "Give powerups to your friends and family! (BepInEx)",
   "dependencies": [

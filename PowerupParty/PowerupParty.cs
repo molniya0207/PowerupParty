@@ -14,7 +14,8 @@ using UnityEngine;
 
 namespace PowerupParty
 {
-    [BepInPlugin("st.powerupparty", "PowerupParty", "1.0.0")]
+    [BepInPlugin("st.powerupparty", "PowerupParty", "1.1.0")]
+    [BepInDependency(Terrain.Packets.Plugin.Main.Guid)]
     class PowerupParty : BaseUnityPlugin
     {
         private readonly Harmony harmony = new Harmony("PowerupParty");
@@ -25,9 +26,9 @@ namespace PowerupParty
             Logger.LogInfo("PowerupParty loaded!");
 
             harmony.PatchAll();
-            packets.HandleClient("GetPowerupFromServer", ClientGetPowerupFromServer);
-            packets.HandleClient("AddPowerupChatMessageFromServer", ClientAddPowerupChatMessageFromServer);
-            packets.HandleServer("SendPowerupToClient", ServerSendPowerupToClient);
+            packets.Handle("GetPowerupFromServer", ClientGetPowerupFromServer);
+            packets.Handle("AddPowerupChatMessageFromServer", ClientAddPowerupChatMessageFromServer);
+            packets.Handle("SendPowerupToClient", ServerSendPowerupToClient);
         }
 
         public static void ServerSendPowerupToClient(int fromClient, BinaryReader br)
@@ -35,16 +36,18 @@ namespace PowerupParty
             int idTo = br.ReadInt32();
             Debug.Log(idTo);
             int powerupId = br.ReadInt32();
-            using (packets.WriteToClient("GetPowerupFromServer", idTo, out var writer, P2PSend.Reliable))
+            using (var packet = packets.WriteToClient("GetPowerupFromServer", idTo, P2PSend.Reliable))
             {
-                writer.Write(fromClient);
-                writer.Write(powerupId);
+                packet.Write(fromClient);
+                packet.Write(powerupId);
+                packet.Send();
             }
-            using (packets.WriteToAll("AddPowerupChatMessageFromServer", out var writer, P2PSend.Reliable))
+            using (var packet = packets.WriteToAll("AddPowerupChatMessageFromServer", P2PSend.Reliable))
             {
-                writer.Write(fromClient);
-                writer.Write(idTo);
-                writer.Write(powerupId);
+                packet.Write(fromClient);
+                packet.Write(idTo);
+                packet.Write(powerupId);
+                packet.Send();
             }
         }
 

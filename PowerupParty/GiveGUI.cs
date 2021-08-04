@@ -54,7 +54,7 @@ namespace PowerupParty
             playerSelectUI.GetComponent<RawImage>().color = new Color32(80, 80, 80, 180);
             playerSelectUI.SetActive(false);
             playerSelectUI.GetComponent<VerticalLayoutGroup>().padding = new RectOffset(15, 15, 15, 15);
-            playerSelectUI.GetComponent<VerticalLayoutGroup>().spacing = 2;
+            playerSelectUI.GetComponent<VerticalLayoutGroup>().spacing = 8;
             playerSelectUI.GetComponent<VerticalLayoutGroup>().childAlignment = TextAnchor.UpperCenter;
             playerSelectUI.GetComponent<VerticalLayoutGroup>().childControlWidth = true;
             GameObject selt = new GameObject("plybtn", new[] { typeof(RectTransform), typeof(CanvasRenderer), typeof(RawImage) });
@@ -92,11 +92,12 @@ namespace PowerupParty
                         num--;
                         componentInChildren.text = num.ToString();
                         // TODO: Send add powerup packet
-                        using (PowerupParty.packets.WriteToServer("SendPowerupToClient", out var writer))
+                        using (var packet = PowerupParty.packets.WriteToServer("SendPowerupToClient"))
                         {
                             Debug.Log(z);
-                            writer.Write(z);
-                            writer.Write(currPUI);
+                            packet.Write(z);
+                            packet.Write(currPUI);
+                            packet.Send();
                         }
                     }
                 });
