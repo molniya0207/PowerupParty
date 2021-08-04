@@ -6,7 +6,7 @@ Open inventory, click on powerup, select player.
 
 ### 1.1.0
 
-- Fix for OffroadPackets 2.0
+- Fix for OffroadPackets 2.0 (and also works only with 2.0 now)
 
 ### 1.0.3
 

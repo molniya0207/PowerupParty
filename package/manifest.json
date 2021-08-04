@@ -5,6 +5,6 @@
   "description": "Give powerups to your friends and family! (BepInEx)",
   "dependencies": [
     "BepInEx-BepInExPack_Muck-5.4.1101",
-    "Terrain-OffroadPackets-1.1.0"
+    "Terrain-OffroadPackets-2.0.0"
   ]
 }
