@@ -1,9 +1,10 @@
 {
   "name": "PowerupParty",
-  "version_number": "1.0.1",
+  "version_number": "1.0.2",
   "website_url": "https://github.com/molniya0207/PowerupParty",
-  "description": "Give powerups to your friends and family!",
+  "description": "Give powerups to your friends and family! (BepInEx)",
   "dependencies": [
+    "BepInEx-BepInExPack_Muck-5.4.1101",
     "Terrain-OffroadPackets-1.1.0"
   ]
 }
